@@ -15,7 +15,7 @@ class Publishers extends Model
         'url',
     ];
 
-    public function book(){
-        return $this->belongsTo(App\Models\Books.php, 'publisher_id', 'id');
-    }
+    // public function book(){
+    //     return $this->belongsTo(App\Models\Books.php, 'publisher_id', 'id');
+    // }
 }

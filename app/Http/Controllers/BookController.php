@@ -10,8 +10,32 @@ class BookController extends Controller
 {
     //findOrFail untuk mencari data buku berdasarkan id
     //jika tidak ditemukan maka akan muncul error not found 404
-    public function readBook($id){
+    public function getBook($id){
         return Books::findOrFail($id);
+    }
+
+    public function getAllBook(Request $request){
+        //create parameter food filter
+        // $id = $request->input('id');
+        $nisbn = $request->input('nisbn');
+        $title = $request->input('title');
+
+        $query = array();
+
+        // get data book by nisbn
+        if($nisbn){
+            array_push($query,['nisbn', 'like', '%' . $nisbn . '%']);
+        }
+
+        //get data book by title
+        if($title){
+            array_push($query,['types', 'like', '%' . $title . '%']);
+        }
+
+        $status = 'success';
+        $result = Books::where($query);
+        return response()->json(compact('result', 'status'), 200);
+
     }
 
     public function createBook(Request $request){
@@ -77,3 +101,15 @@ class BookController extends Controller
     }
     
 }
+
+
+
+
+
+
+        // $description = $request->input('description');
+        // $image_url = $request->input('image_url');
+        // $stock = $request->input('stock');
+        // $rating = $request->input('rating');
+        // $publisher_id = $request->input('publisher_id');
+        // $author_id = $request->input('author_id');

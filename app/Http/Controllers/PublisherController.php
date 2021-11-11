@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use App\Models\Publishers;
+
 
 class PublisherController extends Controller
 {
     public function readPublisher($id){
-        return Publisher::findOrFail($id);
+        return Publishers::findOrFail($id);
     }
 
     public function createPublisher(Request $request){
@@ -33,7 +34,7 @@ class PublisherController extends Controller
         $data = $request->all();
 
         try {
-            $publisher = Publisher::findOrFail($id);
+            $publisher = Publishers::findOrFail($id);
             $publisher->name = $data['name'];
             $publisher->description = $data['description'];
             $publisher->url = $data['url'];
@@ -48,7 +49,7 @@ class PublisherController extends Controller
     }
 
     public function deletePublisher($id){
-        $publisher = Publisher::findOrFail($id);
+        $publisher = Publishers::findOrFail($id);
         $publisher->delete();
         $status = "success deleted";
         return response()->json(compact('status'), 200);

@@ -32,7 +32,8 @@ Route::get('user/get/{id}', [UserController::class, 'getUser']);
 Route::post('user/update/{id}', [UserController::class, 'updateUser']);
 Route::delete('user/delete/{id}', [UserController::class, 'deleteUser']);
 
-Route::get('books/get/{id}', [BookController::class, 'readBook']);
+Route::get('books/get/{id}', [BookController::class, 'getBook']);
+Route::get('books/get', [BookController::class, 'getAllBook']);
 Route::post('books/create', [BookController::class, 'createBook']);
 Route::post('books/update/{id}', [BookController::class, 'updateBook']);
 Route::delete('books/delete/{id}', [BookController::class, 'deleteBook']);

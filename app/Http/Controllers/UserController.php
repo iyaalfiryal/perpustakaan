@@ -51,10 +51,13 @@ class UserController extends Controller
     //Fungsi login user 
     public function loginUser(Request $request){
         //Mencari user dari inputan user menggunakan email
-        $user = User::where('email', $request['email'])->first();
+        $user = User::where('email', 
+        
+        $request['email'])->first();
 
         //Auth attempt untuk mengecek apakah data(email dan password) sesuai
-        if($user&&Hash::check($request->password,$user->password)){
+        if($user&&Hash::check($request->password,
+        $user->password)){
             //membuat token
             $token = Str::random(60);
             $user->remember_token = $token;
@@ -77,7 +80,8 @@ class UserController extends Controller
     //fungsi logout, menghapus token dari database
     public function logoutUser(Request $request){
         //mencari user menggunakan token 
-        $user = User::where('remember_token', $request->bearerToken())->first();
+        $user = User::where('remember_token', 
+        $request->bearerToken())->first();
 
         //kalo user ada, jadiin token itu null
         if($user){
