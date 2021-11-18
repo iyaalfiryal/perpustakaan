@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Books;
 use Illuminate\Http\Request;
+use App\Helpers\ResponseFormatter;
 
 
 class BookController extends Controller
@@ -15,10 +16,28 @@ class BookController extends Controller
     }
 
     public function getAllBook(Request $request){
+        
         //create parameter food filter
-        // $id = $request->input('id');
+        $id = $request->input('id');
         $nisbn = $request->input('nisbn');
         $title = $request->input('title');
+
+        // Get Data Food By id
+        if ($id) {
+            $food = Books::find($id);
+            if ($food) {
+                return ResponseFormatter::success(
+                    $food,
+                    'Success Get Data Food By ID'
+                );
+            } else {
+                return ResponseFormatter::error(
+                    null,
+                    'Data Food Not Found',
+                    404
+                );
+            }
+        }
 
         $query = array();
 
@@ -32,9 +51,12 @@ class BookController extends Controller
             array_push($query,['types', 'like', '%' . $title . '%']);
         }
 
-        $status = 'success';
+        // $status = 'success';
         $result = Books::where($query);
-        return response()->json(compact('result', 'status'), 200);
+        return ResponseFormatter::success(
+            $result,
+            'Success Get Data List Book'
+        );
 
     }
 
